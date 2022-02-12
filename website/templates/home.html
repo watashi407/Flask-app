@@ -1,0 +1,217 @@
+{% extends "base.html" %}{% block title %} HOME {% endblock %}
+
+<!-- home content -->
+{% block content %}
+
+<!-- homepage style -->
+<style>
+
+.card {
+    background-color: #fff;
+    padding: 15px;
+    border: none
+}
+
+.input-box {
+    position: relative
+}
+
+.input-box i {
+    position: absolute;
+    right: 13px;
+    top: 15px;
+    color: #ced4da
+}
+
+.form-control {
+    height: 50px;
+    background-color: #eeeeee69
+}
+
+.form-control:focus {
+    background-color: #eeeeee69;
+    box-shadow: none;
+    border-color: #eee
+}
+
+.list {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center
+}
+
+.border-bottom {
+    border-bottom: 2px solid #eee
+}
+
+.list i {
+    font-size: 19px;
+    color: red
+}
+
+.list small {
+    color: #dedddd
+}
+
+/* Search Css */
+
+
+.search-box{
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+}
+.input-search{
+  height: 50px;
+  width: 50px;
+  border-style: none;
+  padding: 10px;
+  font-size: 18px;
+  letter-spacing: 2px;
+  outline: none;
+  border-radius: 25px;
+  transition: all .5s ease-in-out;
+  background-color: #22a6b3;
+  padding-right: 40px;
+  color:rgb(39, 13, 13);
+
+}
+.input-search::placeholder{
+  color:rgba(255,255,255,.5);
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-weight: 100;
+}
+.btn-search{
+  width: 50px;
+  height: 50px;
+  border-style: none;
+  font-size: 20px;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  border-radius: 50%;
+  position: absolute;
+  right: 0px;
+  color:#586436 ;
+  background-color:transparent;
+  pointer-events: painted;  
+}
+.btn-search:focus ~ .input-search{
+  width: 300px;
+  border-radius: 0px;
+  background-color: transparent;
+  border-bottom:1px solid rgba(3, 3, 3, 0.5);
+  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
+.input-search:focus{
+  width: 300px;
+  border-radius: 0px;
+  background-color: transparent;
+  border-bottom:1px solid rgba(29, 63, 83, 0.5);
+  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+}
+
+
+
+</style>
+<main >
+
+  <div class="container mt-5">
+    <div class="row d-flex justify-content-center ">
+        <div class="col-md-6">
+            <div class="card">
+
+        <!-- search tab -->
+              <div class="search-box  mx-auto">
+                <form action="{{ url_for('views.home')}}" method="GET">
+              
+                <button class="btn-search text-dark"><i class="fas fa-search"></i></button>
+                <input type="text" class="input-search" name="search"  placeholder="Type to Search...">
+              </form>
+              </div>
+
+
+
+
+
+              <h6 class="border-bottom pb-2 mb-0 text-dark mt-2">MEMBER LIST</h6>
+
+                <!-- LIST OF NAMES  -->
+                <div class=""> 
+                  {% for note in searched %}
+                  
+                  <div class="card border border-primary m-2">
+                    <div class="card-header">
+                      <span class="text-dark"><img  src="{{url_for('static', filename='image/logoadmin.png')}}" class=" rounded-pill m-3 text-decoration-none" alt="" style="height: 40px; width: 40px;"> <p class="fw-bold">Name : {{ note.names }}</p> <strong class="text-white badge bg-secondary">Status - {{ note.statuses }}</strong>      </span> 
+                    </div>
+                    <div class="card-body text-muted">
+                      <h5 class="card-title">Info : {{note.emails}}</h5>
+                      <p class="card-text">Contact no# : {{note.numbers}}</p>
+                      <p class="card-text">Personal info: {{note.data}}</p>
+                      <p class="card-text">founded by : Chris</p>
+                      <p  class="bg-primary">{{note.date}}</p>
+                    </div>
+                  </div>
+                     
+                      
+             
+<!-- end buttong  -->
+
+   
+              {% endfor %}
+                
+   
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</main>
+
+<!-- modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header mods">
+        <h5 class="modal-title text-dark badge " id="staticBackdropLabel">USER ADMIN</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+
+        <!-- Content login  -->
+
+        <div class="container row">
+          <form class="row g-2" method="POST">
+            <div class="col-6 input-group input-group-sm">
+              <label for="inputPassword2" class="visually-hidden">Username</label>
+              <input type="text" class="form-control form-control-sm" aria-describedby="inputGroup-sizing-sm" placeholder="User Admin" name="username">
+            </div>
+            <div class="col-6 input-group input-group-sm">
+              <label for="inputPassword2" class="visually-hidden">Password</label>
+              <input type="password" class="form-control form-control-sm " aria-describedby="inputGroup-sizing-sm" placeholder="Password" name="password">
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn mb-3 mods btn-sm">Login</button>
+            </div>
+          </form>
+        </div>
+
+        
+      <!--  -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}
